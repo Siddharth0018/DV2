@@ -1,0 +1,84 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Companion to the map: paired view of total studios (bars) and studios per 100,000 people (circles) by state.",
+  "width": "container",
+  "height": 340,
+  "background": "transparent",
+  "padding": {"top": 36, "left": 28, "right": 60, "bottom": 28},
+  "data": {"url": "data/studios-by-state.csv"},
+  "transform": [
+    {"calculate": "datum.studios_per_100k * 60", "as": "density_scaled"},
+    {"calculate": "0", "as": "zero"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "bar", "cornerRadius": 4, "color": "#B14AED", "opacity": 0.55},
+      "encoding": {
+        "x": {
+          "field": "code",
+          "type": "nominal",
+          "sort": {"field": "studios", "order": "descending"},
+          "axis": {"title": null, "labelColor": "#c8cbd9", "labelFont": "Space Grotesk", "labelFontSize": 13, "labelFontWeight": 700, "labelPadding": 14, "domain": false, "ticks": false}
+        },
+        "y": {
+          "field": "studios",
+          "type": "quantitative",
+          "axis": {"title": "Number of studios", "titleColor": "#5DE2E7", "titleFont": "Inter", "titleFontSize": 11, "titleFontWeight": 500, "labelColor": "#6b7088", "labelFont": "Inter", "labelFontSize": 11, "tickColor": "#1a1f35", "domain": false, "grid": true, "gridColor": "#1a1f35", "gridDash": [2, 4]}
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State / Territory"},
+          {"field": "studios", "type": "quantitative", "title": "Studios"},
+          {"field": "studios_per_100k", "type": "quantitative", "title": "Studios per 100k", "format": ".2f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "font": "Space Grotesk", "fontWeight": 700, "fontSize": 14, "color": "#f1f3fa", "dy": -10},
+      "encoding": {
+        "x": {"field": "code", "type": "nominal", "sort": {"field": "studios", "order": "descending"}},
+        "y": {"field": "studios", "type": "quantitative"},
+        "text": {"field": "studios", "type": "quantitative"}
+      }
+    },
+    {
+      "mark": {"type": "rule", "color": "#5DE2E7", "strokeWidth": 1.5, "strokeDash": [2, 4], "opacity": 0.4},
+      "encoding": {
+        "x": {"field": "code", "type": "nominal", "sort": {"field": "studios", "order": "descending"}},
+        "y": {"field": "zero", "type": "quantitative"},
+        "y2": {"field": "density_scaled"}
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 320, "stroke": "#0a0e1a", "strokeWidth": 3, "color": "#5DE2E7"},
+      "encoding": {
+        "x": {"field": "code", "type": "nominal", "sort": {"field": "studios", "order": "descending"}},
+        "y": {"field": "density_scaled", "type": "quantitative"},
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State / Territory"},
+          {"field": "studios_per_100k", "type": "quantitative", "title": "Studios per 100,000 people", "format": ".2f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 10, "fontWeight": 700, "color": "#0a0e1a"},
+      "encoding": {
+        "x": {"field": "code", "type": "nominal", "sort": {"field": "studios", "order": "descending"}},
+        "y": {"field": "density_scaled", "type": "quantitative"},
+        "text": {"field": "studios_per_100k", "type": "quantitative", "format": ".2f"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"x_anchor": "TAS", "label": "Highest density per capita →", "y": 56},
+        {"x_anchor": "VIC", "label": "Largest absolute cluster", "y": 56}
+      ]},
+      "mark": {"type": "text", "font": "Inter", "fontSize": 11, "color": "#F5B742", "fontWeight": 600, "align": "center", "dy": -14},
+      "encoding": {
+        "x": {"field": "x_anchor", "type": "nominal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "label"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

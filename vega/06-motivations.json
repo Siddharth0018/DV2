@@ -1,0 +1,76 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Ranked lollipop chart of motivations for playing video games in Australia.",
+  "width": "container",
+  "height": 440,
+  "background": "transparent",
+  "padding": {"top": 12, "left": 0, "right": 36, "bottom": 12},
+  "data": {"url": "data/motivations.csv"},
+  "transform": [
+    {"calculate": "0", "as": "zero"},
+    {"calculate": "100", "as": "hundred"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "rule", "color": "#2a3050", "strokeWidth": 1.5, "strokeDash": [2, 4]},
+      "encoding": {
+        "x": {"field": "zero", "type": "quantitative", "scale": {"domain": [0, 100]}, "axis": null},
+        "x2": {"field": "hundred"},
+        "y": {"field": "motivation", "type": "nominal", "sort": "-x"}
+      }
+    },
+    {
+      "mark": {"type": "rule", "strokeWidth": 3, "stroke": "#5DE2E7", "strokeCap": "round"},
+      "encoding": {
+        "x": {"field": "zero", "type": "quantitative", "scale": {"domain": [0, 100]}, "axis": null},
+        "x2": {"field": "percent"},
+        "y": {
+          "field": "motivation",
+          "type": "nominal",
+          "sort": "-x",
+          "axis": {"title": null, "labelColor": "#e8eaf0", "labelFont": "Inter", "labelFontSize": 13, "labelFontWeight": 500, "labelPadding": 14, "domain": false, "ticks": false}
+        },
+        "color": {
+          "field": "percent",
+          "type": "quantitative",
+          "scale": {"range": ["#3a8a8d", "#5DE2E7"]},
+          "legend": null
+        }
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 280, "stroke": "#0a0e1a", "strokeWidth": 3},
+      "encoding": {
+        "x": {"field": "percent", "type": "quantitative", "scale": {"domain": [0, 100]}, "axis": null},
+        "y": {"field": "motivation", "type": "nominal", "sort": "-x"},
+        "color": {
+          "field": "percent",
+          "type": "quantitative",
+          "scale": {"range": ["#3a8a8d", "#5DE2E7"]},
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "motivation", "type": "nominal", "title": "Reason for playing"},
+          {"field": "percent", "type": "quantitative", "title": "% of gamers who agree"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 14, "fontWeight": 700, "color": "#f1f3fa", "align": "left", "dx": 16},
+      "encoding": {
+        "x": {"field": "percent", "type": "quantitative", "scale": {"domain": [0, 100]}},
+        "y": {"field": "motivation", "type": "nominal", "sort": "-x"},
+        "text": {"field": "percent", "type": "quantitative", "format": ".0f"}
+      }
+    },
+    {
+      "mark": {"type": "text", "font": "Inter", "fontSize": 11, "color": "#8a91a3", "align": "left", "dx": 35},
+      "encoding": {
+        "x": {"field": "percent", "type": "quantitative", "scale": {"domain": [0, 100]}},
+        "y": {"field": "motivation", "type": "nominal", "sort": "-x"},
+        "text": {"value": "%"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

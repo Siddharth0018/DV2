@@ -1,0 +1,123 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Custom split-flow diagram showing the destination of Australian game industry revenue: 95% exported, 5% sold domestically. The two streams flow outward from a single source.",
+  "width": "container",
+  "height": 380,
+  "background": "transparent",
+  "padding": {"top": 28, "left": 140, "right": 210, "bottom": 28},
+  "layer": [
+    {
+      "data": {"values": [
+        {"x": 0,   "y_top": 51, "y_bottom": 49, "flow": "Exports"},
+        {"x": 5,   "y_top": 53, "y_bottom": 47, "flow": "Exports"},
+        {"x": 15,  "y_top": 60, "y_bottom": 38, "flow": "Exports"},
+        {"x": 30,  "y_top": 75, "y_bottom": 22, "flow": "Exports"},
+        {"x": 50,  "y_top": 90, "y_bottom": 12, "flow": "Exports"},
+        {"x": 75,  "y_top": 97, "y_bottom": 8, "flow": "Exports"},
+        {"x": 100, "y_top": 100,"y_bottom": 5, "flow": "Exports"}
+      ]},
+      "mark": {"type": "area", "interpolate": "monotone", "color": "#5DE2E7", "opacity": 0.95},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": {"domain": [0, 100]}, "axis": null},
+        "y": {"field": "y_top", "type": "quantitative", "scale": {"domain": [0, 100]}, "axis": null},
+        "y2": {"field": "y_bottom"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"x": 0,   "y_top": 49, "y_bottom": 49, "flow": "Domestic"},
+        {"x": 5,   "y_top": 47, "y_bottom": 46, "flow": "Domestic"},
+        {"x": 15,  "y_top": 38, "y_bottom": 36, "flow": "Domestic"},
+        {"x": 30,  "y_top": 22, "y_bottom": 18, "flow": "Domestic"},
+        {"x": 50,  "y_top": 12, "y_bottom": 7,  "flow": "Domestic"},
+        {"x": 75,  "y_top": 8,  "y_bottom": 4,  "flow": "Domestic"},
+        {"x": 100, "y_top": 5,  "y_bottom": 0,  "flow": "Domestic"}
+      ]},
+      "mark": {"type": "area", "interpolate": "monotone", "color": "#B14AED", "opacity": 0.95},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": {"domain": [0, 100]}},
+        "y": {"field": "y_top", "type": "quantitative", "scale": {"domain": [0, 100]}},
+        "y2": {"field": "y_bottom"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"x": 100, "y": 52, "text": "$578.1M", "type": "value"},
+        {"x": 100, "y": 65, "text": "95%", "type": "headline"},
+        {"x": 100, "y": 40, "text": "EXPORTED OVERSEAS", "type": "category"},
+        {"x": 100, "y": 32, "text": "International publishers, platforms & players", "type": "sub"}
+      ]},
+      "layer": [
+        {
+          "transform": [{"filter": "datum.type === 'headline'"}],
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 56, "fontWeight": 700, "color": "#5DE2E7", "align": "left", "dx": 18},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "text"}}
+        },
+        {
+          "transform": [{"filter": "datum.type === 'value'"}],
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 18, "fontWeight": 600, "color": "#f1f3fa", "align": "left", "dx": 18},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "text"}}
+        },
+        {
+          "transform": [{"filter": "datum.type === 'category'"}],
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 11, "fontWeight": 700, "color": "#5DE2E7", "align": "left", "dx": 18, "letterSpacing": 2},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "text"}}
+        },
+        {
+          "transform": [{"filter": "datum.type === 'sub'"}],
+          "mark": {"type": "text", "font": "Inter", "fontSize": 12, "color": "#8a91a3", "align": "left", "dx": 18},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "text"}}
+        }
+      ]
+    },
+    {
+      "data": {"values": [
+        {"x": 100, "y": 4,  "text": "5%", "type": "headline"},
+        {"x": 100, "y": 14, "text": "DOMESTIC AUS", "type": "category"},
+        {"x": 100, "y": 9,  "text": "$30.4M  |  Sold to Australian players", "type": "sub"}
+      ]},
+      "layer": [
+        {
+          "transform": [{"filter": "datum.type === 'headline'"}],
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 28, "fontWeight": 700, "color": "#B14AED", "align": "left", "dx": 18},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "text"}}
+        },
+        {
+          "transform": [{"filter": "datum.type === 'category'"}],
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 11, "fontWeight": 700, "color": "#B14AED", "align": "left", "dx": 18, "letterSpacing": 2},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "text"}}
+        },
+        {
+          "transform": [{"filter": "datum.type === 'sub'"}],
+          "mark": {"type": "text", "font": "Inter", "fontSize": 12, "color": "#8a91a3", "align": "left", "dx": 18},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "text"}}
+        }
+      ]
+    },
+    {
+      "data": {"values": [
+        {"x": 0, "y": 50, "text": "FY25", "type": "label"},
+        {"x": 0, "y": 56, "text": "$608.5M", "type": "headline"},
+        {"x": 0, "y": 44, "text": "Total revenue", "type": "sub"}
+      ]},
+      "layer": [
+        {
+          "transform": [{"filter": "datum.type === 'headline'"}],
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 22, "fontWeight": 700, "color": "#f1f3fa", "align": "right", "dx": -16},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "text"}}
+        },
+        {
+          "transform": [{"filter": "datum.type === 'label'"}],
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 11, "fontWeight": 700, "color": "#8a91a3", "align": "right", "dx": -16, "letterSpacing": 2},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "text"}}
+        },
+        {
+          "transform": [{"filter": "datum.type === 'sub'"}],
+          "mark": {"type": "text", "font": "Inter", "fontSize": 11, "color": "#8a91a3", "align": "right", "dx": -16},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "text"}}
+        }
+      ]
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Total full-time employees in the Australian games industry, broken down by gender identification, FY2016 to FY2025.",
+  "width": "container",
+  "height": 380,
+  "background": "transparent",
+  "padding": {"top": 24, "left": 24, "right": 28, "bottom": 28},
+  "data": {"url": "data/agds-yearly.csv"},
+  "transform": [
+    {"fold": ["men", "women", "gender_diverse"], "as": ["gender", "count"]},
+    {"calculate": "datum.gender === 'men' ? 'Men' : datum.gender === 'women' ? 'Women' : 'Trans, non-binary & gender-diverse'", "as": "gender_label"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "area", "interpolate": "monotone", "opacity": 0.92},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal",
+          "axis": {"title": null, "labelColor": "#c8cbd9", "labelFont": "Inter", "labelFontSize": 12, "labelFontWeight": 500, "domain": false, "ticks": false, "labelPadding": 12}},
+        "y": {"field": "count", "type": "quantitative", "stack": "zero",
+          "axis": {"title": "Full-time employees", "titleColor": "#8a91a3", "titleFont": "Inter", "titleFontSize": 11, "titlePadding": 14, "labelColor": "#6b7088", "labelFont": "Inter", "labelFontSize": 11, "tickColor": "#1a1f35", "domain": false, "grid": true, "gridColor": "#1a1f35", "gridDash": [2, 4]}},
+        "color": {
+          "field": "gender_label",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Men", "Women", "Trans, non-binary & gender-diverse"],
+            "range": ["#5DE2E7", "#F4287F", "#B14AED"]
+          },
+          "legend": {
+            "orient": "top",
+            "title": null,
+            "labelColor": "#c8cbd9",
+            "labelFont": "Inter",
+            "labelFontSize": 12,
+            "symbolType": "square",
+            "symbolSize": 140,
+            "padding": 10,
+            "offset": 10
+          }
+        },
+        "tooltip": [
+          {"field": "year", "type": "nominal", "title": "Year"},
+          {"field": "gender_label", "type": "nominal", "title": "Identifies as"},
+          {"field": "count", "type": "quantitative", "title": "Employees"}
+        ]
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

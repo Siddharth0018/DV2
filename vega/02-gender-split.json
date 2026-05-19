@@ -1,0 +1,92 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Australian gamer gender split: women 51%, men 48%, non-binary 1%. Custom layered bar with figure pictograms.",
+  "width": "container",
+  "height": 320,
+  "background": "transparent",
+  "padding": {"top": 30, "left": 0, "right": 0, "bottom": 0},
+  "data": {
+    "values": [
+      {"gender": "Women",      "percent": 51, "order": 1, "y": 0},
+      {"gender": "Men",        "percent": 48, "order": 2, "y": 0},
+      {"gender": "Non-binary", "percent": 1,  "order": 3, "y": 0}
+    ]
+  },
+  "transform": [
+    {"window": [{"op": "sum", "field": "percent", "as": "cumulative"}], "sort": [{"field": "order"}]},
+    {"calculate": "datum.cumulative - datum.percent", "as": "start"},
+    {"calculate": "datum.cumulative", "as": "end"},
+    {"calculate": "(datum.start + datum.end) / 2", "as": "mid"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "bar", "height": 70, "cornerRadius": 6, "stroke": "#0a0e1a", "strokeWidth": 3},
+      "encoding": {
+        "x": {
+          "field": "start",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {"domain": [0, 100]}
+        },
+        "x2": {"field": "end"},
+        "y": {"field": "y", "type": "ordinal", "axis": null},
+        "color": {
+          "field": "gender",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Women", "Men", "Non-binary"],
+            "range": ["#F4287F", "#5DE2E7", "#B14AED"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "gender", "type": "nominal", "title": "Identifies as"},
+          {"field": "percent", "type": "quantitative", "title": "Share of gamers (%)"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.percent >= 5"}],
+      "mark": {"type": "text", "fontSize": 36, "fontWeight": 700, "font": "Space Grotesk", "color": "#0a0e1a", "dy": -6},
+      "encoding": {
+        "x": {"field": "mid", "type": "quantitative"},
+        "y": {"field": "y", "type": "ordinal"},
+        "text": {"field": "percent", "type": "quantitative", "format": ".0f"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.percent >= 5"}],
+      "mark": {"type": "text", "fontSize": 13, "fontWeight": 500, "font": "Inter", "color": "#0a0e1a", "dy": 22},
+      "encoding": {
+        "x": {"field": "mid", "type": "quantitative"},
+        "y": {"field": "y", "type": "ordinal"},
+        "text": {"field": "gender", "type": "nominal"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.percent < 5"}],
+      "mark": {"type": "text", "fontSize": 13, "fontWeight": 600, "font": "Inter", "color": "#c8cbd9", "dy": -50},
+      "encoding": {
+        "x": {"field": "mid", "type": "quantitative"},
+        "y": {"field": "y", "type": "ordinal"},
+        "text": {"value": "↓ 1% non-binary"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"x": 25.5, "label": "FEMALE", "weight": 51},
+        {"x": 75.0, "label": "MALE", "weight": 48}
+      ]},
+      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 11, "fontWeight": 600, "letterSpacing": 3, "color": "#8a91a3", "dy": -65},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": {"domain": [0, 100]}},
+        "y": {"value": 50},
+        "text": {"field": "label"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"domain": false, "ticks": false, "labels": false, "grid": false}
+  }
+}

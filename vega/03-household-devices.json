@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Layered horizontal bars showing share of Australian households with one, two, or three+ gaming devices.",
+  "width": "container",
+  "height": 300,
+  "background": "transparent",
+  "padding": {"left": 0, "right": 30, "top": 20, "bottom": 20},
+  "data": {
+    "url": "data/households.csv"
+  },
+  "transform": [
+    {"filter": "datum.category !== 'Play together as a family'"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "bar", "color": "#1f2540", "height": 36, "cornerRadius": 4},
+      "encoding": {
+        "x": {
+          "datum": 100,
+          "type": "quantitative",
+          "scale": {"domain": [0, 100]},
+          "axis": null
+        },
+        "y": {
+          "field": "category",
+          "type": "nominal",
+          "sort": ["At least one device", "Two or more devices", "Three or more devices"],
+          "axis": {
+            "title": null,
+            "labelColor": "#c8cbd9",
+            "labelFont": "Inter",
+            "labelFontSize": 13,
+            "labelPadding": 12,
+            "domain": false,
+            "ticks": false,
+            "labelLimit": 200
+          }
+        }
+      }
+    },
+    {
+      "mark": {"type": "bar", "height": 36, "cornerRadius": 4},
+      "encoding": {
+        "x": {"field": "percent", "type": "quantitative", "axis": null, "scale": {"domain": [0, 100]}},
+        "y": {"field": "category", "type": "nominal", "sort": ["At least one device", "Two or more devices", "Three or more devices"]},
+        "color": {
+          "field": "category",
+          "type": "nominal",
+          "scale": {
+            "domain": ["At least one device", "Two or more devices", "Three or more devices"],
+            "range": ["#5DE2E7", "#B14AED", "#F4287F"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "category", "type": "nominal", "title": "Household"},
+          {"field": "percent", "type": "quantitative", "title": "% of households", "format": ".0f"},
+          {"field": "description", "type": "nominal", "title": "Detail"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 28, "fontWeight": 700, "color": "#f1f3fa", "align": "left", "dx": 12},
+      "encoding": {
+        "x": {"field": "percent", "type": "quantitative", "scale": {"domain": [0, 100]}},
+        "y": {"field": "category", "type": "nominal", "sort": ["At least one device", "Two or more devices", "Three or more devices"]},
+        "text": {"field": "percent", "type": "quantitative", "format": ".0f"}
+      }
+    },
+    {
+      "mark": {"type": "text", "font": "Inter", "fontSize": 14, "fontWeight": 500, "color": "#8a91a3", "align": "left", "dx": 52, "dy": 2},
+      "encoding": {
+        "x": {"field": "percent", "type": "quantitative", "scale": {"domain": [0, 100]}},
+        "y": {"field": "category", "type": "nominal", "sort": ["At least one device", "Two or more devices", "Three or more devices"]},
+        "text": {"value": "%"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null}
+  }
+}

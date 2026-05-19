@@ -1,0 +1,10 @@
+year,revenue_aud_millions,studios,employees,men,women,gender_diverse,note
+FY2016,114.8,63,842,683,156,3,"First AGDS snapshot"
+FY2017,118.5,114,928,752,167,9,
+FY2019,143.5,143,1275,995,268,12,"FY2018 not surveyed"
+FY2020,184.6,97,1245,996,212,37,"COVID-19 pandemic begins"
+FY2021,226.5,187,1327,878,302,147,"Major hiring boom"
+FY2022,284.4,102,2104,1578,442,84,
+FY2023,345.5,111,2458,1696,639,123,"DGTO tax offset passes"
+FY2024,339.1,137,2465,1824,542,99,"Global industry downturn"
+FY2025,608.5,141,2443,1807,538,98,"Sensor Tower data included"

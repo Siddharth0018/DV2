@@ -1,0 +1,67 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Gaming device usage in Australia. Each row shows the share of gamers using that device — gamers use multiple devices, so values do not sum to 100%.",
+  "width": "container",
+  "height": 340,
+  "background": "transparent",
+  "padding": {"top": 16, "left": 0, "right": 24, "bottom": 16},
+  "data": {"url": "data/devices.csv"},
+  "transform": [
+    {"calculate": "100", "as": "track"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "bar", "color": "#1a1f35", "cornerRadius": 4, "height": 28},
+      "encoding": {
+        "x": {"field": "track", "type": "quantitative", "scale": {"domain": [0, 100]}, "axis": null},
+        "y": {"field": "device", "type": "nominal", "sort": "-x",
+          "axis": {"title": null, "labelColor": "#e8eaf0", "labelFont": "Inter", "labelFontSize": 14, "labelFontWeight": 500, "labelPadding": 14, "domain": false, "ticks": false}}
+      }
+    },
+    {
+      "mark": {"type": "bar", "cornerRadius": 4, "height": 28},
+      "encoding": {
+        "x": {"field": "usage_pct", "type": "quantitative", "axis": null, "scale": {"domain": [0, 100]}},
+        "y": {"field": "device", "type": "nominal", "sort": "-x"},
+        "color": {
+          "field": "device",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Console", "Smartphone", "PC / Laptop", "Handheld", "Tablet", "VR Headset"],
+            "range": ["#5DE2E7", "#42C4D9", "#B14AED", "#8A35BD", "#F4287F", "#C71F65"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "device", "type": "nominal", "title": "Device"},
+          {"field": "usage_pct", "type": "quantitative", "title": "% of gamers", "format": ".0f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 18, "fontWeight": 700, "color": "#f1f3fa", "align": "left", "dx": 10},
+      "encoding": {
+        "x": {"field": "usage_pct", "type": "quantitative", "scale": {"domain": [0, 100]}},
+        "y": {"field": "device", "type": "nominal", "sort": "-x"},
+        "text": {"value": ""}
+      }
+    },
+    {
+      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 16, "fontWeight": 700, "color": "#f1f3fa", "align": "left", "dx": 10},
+      "encoding": {
+        "x": {"field": "usage_pct", "type": "quantitative", "scale": {"domain": [0, 100]}},
+        "y": {"field": "device", "type": "nominal", "sort": "-x"},
+        "text": {"field": "usage_pct", "type": "quantitative", "format": ".0f"}
+      }
+    },
+    {
+      "mark": {"type": "text", "font": "Inter", "fontSize": 11, "fontWeight": 500, "color": "#8a91a3", "align": "left", "dx": 36, "dy": 1},
+      "encoding": {
+        "x": {"field": "usage_pct", "type": "quantitative", "scale": {"domain": [0, 100]}},
+        "y": {"field": "device", "type": "nominal", "sort": "-x"},
+        "text": {"value": "%"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Proportional segmented bar showing the workforce role distribution in Australian game studios. Each segment is sized in proportion to the share of workers in that role.",
+  "width": "container",
+  "height": 230,
+  "background": "transparent",
+  "padding": {"top": 30, "left": 0, "right": 0, "bottom": 28},
+  "data": {"url": "data/roles.csv"},
+  "transform": [
+    {"window": [{"op": "sum", "field": "percent", "as": "cumulative"}], "sort": [{"field": "percent", "order": "descending"}]},
+    {"calculate": "datum.cumulative - datum.percent", "as": "start"},
+    {"calculate": "datum.cumulative", "as": "end"},
+    {"calculate": "(datum.start + datum.end) / 2", "as": "mid"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "bar", "height": 110, "stroke": "#0a0e1a", "strokeWidth": 3, "cornerRadius": 2},
+      "encoding": {
+        "x": {
+          "field": "start",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {"domain": [0, 100]}
+        },
+        "x2": {"field": "end"},
+        "y": {"value": 110},
+        "color": {
+          "field": "role",
+          "type": "nominal",
+          "sort": {"field": "percent", "order": "descending"},
+          "scale": {
+            "domain": ["Programmers & Engineers","Artists","Designers","Management & Admin","Producers","QA","Audio","Narrative","Other"],
+            "range": ["#5DE2E7","#42C4D9","#B14AED","#8A35BD","#F4287F","#F5B742","#5DE2A1","#FF8559","#3a4060"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "role", "type": "nominal", "title": "Role"},
+          {"field": "percent", "type": "quantitative", "title": "% of workforce", "format": ".0f"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.percent >= 7"}],
+      "mark": {"type": "text", "font": "Space Grotesk", "fontWeight": 700, "fontSize": 28, "color": "#0a0e1a", "dy": -10},
+      "encoding": {
+        "x": {"field": "mid", "type": "quantitative"},
+        "y": {"value": 110},
+        "text": {"field": "percent", "type": "quantitative", "format": ".0f"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.percent >= 7"}],
+      "mark": {"type": "text", "font": "Inter", "fontWeight": 600, "fontSize": 11, "color": "#0a0e1a", "dy": 22},
+      "encoding": {
+        "x": {"field": "mid", "type": "quantitative"},
+        "y": {"value": 110},
+        "text": {"field": "role", "type": "nominal"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.percent < 7 && datum.percent >= 3"}],
+      "mark": {"type": "text", "font": "Space Grotesk", "fontWeight": 700, "fontSize": 16, "color": "#0a0e1a"},
+      "encoding": {
+        "x": {"field": "mid", "type": "quantitative"},
+        "y": {"value": 110},
+        "text": {"field": "percent", "type": "quantitative", "format": ".0f"}
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.percent < 7"},
+        {"calculate": "datum.role + ' (' + datum.percent + '%)'", "as": "label"}
+      ],
+      "mark": {"type": "text", "font": "Inter", "fontWeight": 600, "fontSize": 10, "color": "#c8cbd9", "dy": -82, "angle": -32, "align": "left"},
+      "encoding": {
+        "x": {"field": "mid", "type": "quantitative"},
+        "y": {"value": 110},
+        "text": {"field": "label"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

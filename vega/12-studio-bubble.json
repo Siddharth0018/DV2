@@ -1,0 +1,97 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Bubble chart of Australian game studios. X = studio age in years, Y = annual revenue (AUD millions), size = number of full-time employees, colour = state.",
+  "width": "container",
+  "height": 480,
+  "background": "transparent",
+  "padding": {"top": 24, "left": 28, "right": 28, "bottom": 32},
+  "data": {"url": "data/studios.csv"},
+  "params": [
+    {
+      "name": "state_filter",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": ["All","Victoria","New South Wales","Queensland","Western Australia","South Australia","Tasmania","Australian Capital Territory","Northern Territory"],
+        "name": "Filter by state: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "state_filter === 'All' || datum.state === state_filter"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "circle", "opacity": 0.7, "stroke": "#0a0e1a", "strokeWidth": 1},
+      "encoding": {
+        "x": {
+          "field": "age_years",
+          "type": "quantitative",
+          "scale": {"domain": [0, 30]},
+          "axis": {"title": "Studio age (years)", "titleColor": "#8a91a3", "titleFont": "Inter", "titleFontSize": 11, "titlePadding": 12, "labelColor": "#6b7088", "labelFont": "Inter", "labelFontSize": 11, "tickColor": "#1a1f35", "domain": false, "grid": true, "gridColor": "#1a1f35", "gridDash": [2, 4]}
+        },
+        "y": {
+          "field": "revenue_aud_millions",
+          "type": "quantitative",
+          "scale": {"type": "symlog"},
+          "axis": {"title": "Annual revenue (AUD millions, log scale)", "titleColor": "#8a91a3", "titleFont": "Inter", "titleFontSize": 11, "titlePadding": 12, "labelColor": "#6b7088", "labelFont": "Inter", "labelFontSize": 11, "tickColor": "#1a1f35", "domain": false, "grid": true, "gridColor": "#1a1f35", "gridDash": [2, 4], "values": [0.1, 1, 5, 10, 50, 100, 200], "format": "$,.0f"}
+        },
+        "size": {
+          "field": "employees",
+          "type": "quantitative",
+          "scale": {"range": [60, 1800]},
+          "legend": {
+            "title": "Full-time employees",
+            "titleColor": "#c8cbd9",
+            "titleFont": "Inter",
+            "titleFontSize": 11,
+            "labelColor": "#8a91a3",
+            "labelFont": "Inter",
+            "labelFontSize": 11,
+            "orient": "bottom-right"
+          }
+        },
+        "color": {
+          "field": "state_code",
+          "type": "nominal",
+          "scale": {
+            "domain": ["VIC","NSW","QLD","WA","SA","TAS","ACT","NT"],
+            "range": ["#5DE2E7","#F4287F","#B14AED","#F5B742","#5DE2A1","#FF8559","#42C4D9","#8A35BD"]
+          },
+          "legend": {
+            "title": "State / Territory",
+            "titleColor": "#c8cbd9",
+            "titleFont": "Inter",
+            "titleFontSize": 11,
+            "labelColor": "#c8cbd9",
+            "labelFont": "Inter",
+            "labelFontSize": 11,
+            "orient": "top",
+            "symbolType": "circle",
+            "symbolSize": 120
+          }
+        },
+        "tooltip": [
+          {"field": "studio_id", "type": "nominal", "title": "Studio (anonymous)"},
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "age_years", "type": "quantitative", "title": "Age (years)"},
+          {"field": "employees", "type": "quantitative", "title": "Employees"},
+          {"field": "revenue_aud_millions", "type": "quantitative", "title": "Revenue (AUD M)", "format": "$,.2f"}
+        ]
+      }
+    },
+    {
+      "data": {"values": [
+        {"x": 1.3, "y": 0.18, "text": "31% of studios are developing their first game", "type": "annot"},
+        {"x": 22, "y": 80,  "text": "Older mature studios cluster top-right →", "type": "annot"}
+      ]},
+      "mark": {"type": "text", "font": "Inter", "fontSize": 12, "color": "#F5B742", "fontWeight": 600, "align": "left"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "text"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Australian game development industry revenue from FY2016 to FY2025, with milestone annotations. Note: FY2025 incorporates supplementary Sensor Tower data for the first time.",
+  "width": "container",
+  "height": 460,
+  "background": "transparent",
+  "padding": {"top": 28, "left": 24, "right": 36, "bottom": 28},
+  "data": {"url": "data/agds-yearly.csv"},
+  "layer": [
+    {
+      "mark": {"type": "area", "interpolate": "monotone", "opacity": 0.18},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal", "axis": null},
+        "y": {"field": "revenue_aud_millions", "type": "quantitative", "axis": null},
+        "color": {"value": "#5DE2E7"}
+      }
+    },
+    {
+      "mark": {"type": "line", "interpolate": "monotone", "color": "#5DE2E7", "strokeWidth": 3},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal",
+          "axis": {"title": null, "labelColor": "#c8cbd9", "labelFont": "Inter", "labelFontSize": 12, "labelFontWeight": 500, "labelAngle": 0, "domain": false, "ticks": false, "labelPadding": 12}
+        },
+        "y": {"field": "revenue_aud_millions", "type": "quantitative",
+          "axis": {"title": "Revenue (AUD millions)", "titleColor": "#8a91a3", "titleFont": "Inter", "titleFontSize": 11, "titleFontWeight": 500, "titlePadding": 14, "labelColor": "#6b7088", "labelFont": "Inter", "labelFontSize": 11, "tickColor": "#1a1f35", "domain": false, "grid": true, "gridColor": "#1a1f35", "gridDash": [2, 4], "format": "$,.0f"}
+        }
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true, "size": 200, "stroke": "#0a0e1a", "strokeWidth": 3, "color": "#5DE2E7"},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "revenue_aud_millions", "type": "quantitative"},
+        "tooltip": [
+          {"field": "year", "type": "nominal", "title": "Financial year"},
+          {"field": "revenue_aud_millions", "type": "quantitative", "title": "Revenue (AUD millions)", "format": "$,.1f"},
+          {"field": "studios", "type": "quantitative", "title": "Surveyed studios"},
+          {"field": "employees", "type": "quantitative", "title": "Full-time employees"},
+          {"field": "note", "type": "nominal", "title": "Milestone"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.year === 'FY2025' || datum.year === 'FY2020' || datum.year === 'FY2023' || datum.year === 'FY2016'"}],
+      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 13, "fontWeight": 700, "color": "#f1f3fa", "dy": -22, "align": "center"},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "revenue_aud_millions", "type": "quantitative"},
+        "text": {"field": "revenue_aud_millions", "type": "quantitative", "format": "$,.0f"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"year": "FY2020", "y": 240, "label": "COVID-19", "sub": "Sector hires through pandemic"},
+        {"year": "FY2023", "y": 410, "label": "DGTO law passes", "sub": "30% federal tax offset"},
+        {"year": "FY2024", "y": 270, "label": "Global downturn", "sub": "First-ever dip: −1.9%"},
+        {"year": "FY2025", "y": 540, "label": "+79% vs FY24*", "sub": "*Sensor Tower data added"}
+      ]},
+      "transform": [{"calculate": "0", "as": "y0"}],
+      "layer": [
+        {
+          "mark": {"type": "rule", "color": "#F5B742", "strokeWidth": 1.2, "strokeDash": [2, 3], "opacity": 0.5},
+          "encoding": {
+            "x": {"field": "year", "type": "ordinal"},
+            "y": {"field": "y0", "type": "quantitative"},
+            "y2": {"field": "y"}
+          }
+        },
+        {
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 11, "fontWeight": 700, "color": "#F5B742", "align": "center", "dy": -6},
+          "encoding": {
+            "x": {"field": "year", "type": "ordinal"},
+            "y": {"field": "y", "type": "quantitative"},
+            "text": {"field": "label"}
+          }
+        },
+        {
+          "mark": {"type": "text", "font": "Inter", "fontSize": 10, "color": "#8a91a3", "align": "center", "dy": 7},
+          "encoding": {
+            "x": {"field": "year", "type": "ordinal"},
+            "y": {"field": "y", "type": "quantitative"},
+            "text": {"field": "sub"}
+          }
+        }
+      ]
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

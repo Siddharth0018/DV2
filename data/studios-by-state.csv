@@ -1,0 +1,9 @@
+state,code,studios,fte_employees,population_thousands,studios_per_100k,fte_per_100k
+Victoria,VIC,50,880,7012,0.713,12.55
+New South Wales,NSW,33,440,8612,0.383,5.11
+Queensland,QLD,25,342,5560,0.450,6.15
+Western Australia,WA,12,293,3013,0.398,9.72
+South Australia,SA,11,196,1893,0.581,10.35
+Tasmania,TAS,5,73,581,0.860,12.56
+Australian Capital Territory,ACT,4,168,475,0.842,35.37
+Northern Territory,NT,1,51,255,0.392,20.00

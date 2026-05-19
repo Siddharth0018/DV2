@@ -1,0 +1,105 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Industry revenue history and forward projection to FY2028. Solid line is reported AGDS revenue; dashed line projects forward at the conservative 10-year compound growth rate.",
+  "width": "container",
+  "height": 420,
+  "background": "transparent",
+  "padding": {"top": 28, "left": 28, "right": 80, "bottom": 36},
+  "data": {
+    "values": [
+      {"year": "FY2016", "revenue": 114.8, "phase": "historical", "lower": 114.8, "upper": 114.8},
+      {"year": "FY2017", "revenue": 118.5, "phase": "historical", "lower": 118.5, "upper": 118.5},
+      {"year": "FY2019", "revenue": 143.5, "phase": "historical", "lower": 143.5, "upper": 143.5},
+      {"year": "FY2020", "revenue": 184.6, "phase": "historical", "lower": 184.6, "upper": 184.6},
+      {"year": "FY2021", "revenue": 226.5, "phase": "historical", "lower": 226.5, "upper": 226.5},
+      {"year": "FY2022", "revenue": 284.4, "phase": "historical", "lower": 284.4, "upper": 284.4},
+      {"year": "FY2023", "revenue": 345.5, "phase": "historical", "lower": 345.5, "upper": 345.5},
+      {"year": "FY2024", "revenue": 339.1, "phase": "historical", "lower": 339.1, "upper": 339.1},
+      {"year": "FY2025", "revenue": 608.5, "phase": "historical", "lower": 608.5, "upper": 608.5},
+      {"year": "FY2026", "revenue": 678,   "phase": "projection", "lower": 640, "upper": 720},
+      {"year": "FY2027", "revenue": 754,   "phase": "projection", "lower": 690, "upper": 825},
+      {"year": "FY2028", "revenue": 838,   "phase": "projection", "lower": 740, "upper": 940}
+    ]
+  },
+  "layer": [
+    {
+      "transform": [{"filter": "datum.phase === 'projection' || datum.year === 'FY2025'"}],
+      "mark": {"type": "area", "interpolate": "monotone", "color": "#B14AED", "opacity": 0.18},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "lower", "type": "quantitative"},
+        "y2": {"field": "upper"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.phase === 'historical'"}],
+      "mark": {"type": "area", "interpolate": "monotone", "color": "#5DE2E7", "opacity": 0.16},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "revenue", "type": "quantitative"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.phase === 'historical'"}],
+      "mark": {"type": "line", "interpolate": "monotone", "color": "#5DE2E7", "strokeWidth": 3},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal",
+          "axis": {"title": null, "labelColor": "#c8cbd9", "labelFont": "Inter", "labelFontSize": 12, "labelFontWeight": 500, "labelAngle": 0, "domain": false, "ticks": false, "labelPadding": 12}},
+        "y": {"field": "revenue", "type": "quantitative",
+          "axis": {"title": "Revenue (AUD millions)", "titleColor": "#8a91a3", "titleFont": "Inter", "titleFontSize": 11, "titlePadding": 14, "labelColor": "#6b7088", "labelFont": "Inter", "labelFontSize": 11, "tickColor": "#1a1f35", "domain": false, "grid": true, "gridColor": "#1a1f35", "gridDash": [2, 4], "format": "$,.0f"}}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.year === 'FY2025' || datum.phase === 'projection'"}],
+      "mark": {"type": "line", "interpolate": "monotone", "color": "#B14AED", "strokeWidth": 3, "strokeDash": [6, 5]},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "revenue", "type": "quantitative"}
+      }
+    },
+    {
+      "mark": {"type": "circle", "filled": true, "size": 130, "stroke": "#0a0e1a", "strokeWidth": 3},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "revenue", "type": "quantitative"},
+        "color": {
+          "field": "phase",
+          "type": "nominal",
+          "scale": {"domain": ["historical", "projection"], "range": ["#5DE2E7", "#B14AED"]},
+          "legend": {
+            "title": null,
+            "labelColor": "#c8cbd9",
+            "labelFont": "Inter",
+            "labelFontSize": 12,
+            "orient": "top",
+            "labelExpr": "datum.value === 'historical' ? 'Reported (AGDS)' : 'Projected (illustrative)'"
+          }
+        },
+        "tooltip": [
+          {"field": "year", "type": "nominal", "title": "Year"},
+          {"field": "phase", "type": "nominal", "title": "Type"},
+          {"field": "revenue", "type": "quantitative", "title": "Revenue (AUD M)", "format": "$,.0f"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.year === 'FY2028'"}],
+      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 22, "fontWeight": 700, "color": "#B14AED", "align": "left", "dx": 18},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "revenue", "type": "quantitative"},
+        "text": {"value": "~$838M"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.year === 'FY2028'"}],
+      "mark": {"type": "text", "font": "Inter", "fontSize": 11, "color": "#8a91a3", "align": "left", "dx": 18, "dy": 18},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "revenue", "type": "quantitative"},
+        "text": {"value": "Projected FY28"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

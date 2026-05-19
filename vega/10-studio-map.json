@@ -1,0 +1,116 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Choropleth map of Australian states and territories coloured by game studios per 100,000 people. Uses the Mercator projection. Combines AGDS FY2025 studio counts with ABS state population data.",
+  "width": "container",
+  "height": 520,
+  "background": "transparent",
+  "padding": 0,
+  "projection": {
+    "type": "mercator",
+    "center": [134, -27],
+    "scale": 650
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/aus-states.geojson",
+        "format": {"type": "json", "property": "features"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.code",
+          "from": {
+            "data": {"url": "data/studios-by-state.csv"},
+            "key": "code",
+            "fields": ["studios", "fte_employees", "population_thousands", "studios_per_100k", "state"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "#0a0e1a", "strokeWidth": 1.5},
+      "encoding": {
+        "color": {
+          "field": "studios_per_100k",
+          "type": "quantitative",
+          "scale": {
+            "type": "sequential",
+            "scheme": "viridis",
+            "domain": [0, 1.0]
+          },
+          "legend": {
+            "title": "Studios per 100,000 people",
+            "titleColor": "#c8cbd9",
+            "titleFont": "Inter",
+            "titleFontSize": 12,
+            "titleFontWeight": 500,
+            "labelColor": "#8a91a3",
+            "labelFont": "Inter",
+            "labelFontSize": 11,
+            "orient": "top-right",
+            "gradientLength": 200,
+            "gradientThickness": 12,
+            "format": ".2f"
+          }
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State / Territory"},
+          {"field": "studios", "type": "quantitative", "title": "Studios"},
+          {"field": "fte_employees", "type": "quantitative", "title": "Full-time employees"},
+          {"field": "population_thousands", "type": "quantitative", "title": "Population (000s)", "format": ",.0f"},
+          {"field": "studios_per_100k", "type": "quantitative", "title": "Studios per 100,000", "format": ".2f"}
+        ]
+      }
+    },
+    {
+      "data": {"values": [
+        {"long": 144.96, "lat": -37.8, "code": "VIC", "label": "VIC", "n": 50},
+        {"long": 151.21, "lat": -33.87, "code": "NSW", "label": "NSW", "n": 33},
+        {"long": 153.02, "lat": -27.47, "code": "QLD", "label": "QLD", "n": 25},
+        {"long": 115.86, "lat": -31.95, "code": "WA", "label": "WA", "n": 12},
+        {"long": 138.6, "lat": -34.93, "code": "SA", "label": "SA", "n": 11},
+        {"long": 147.33, "lat": -42.88, "code": "TAS", "label": "TAS", "n": 5},
+        {"long": 149.13, "lat": -35.28, "code": "ACT", "label": "ACT", "n": 4},
+        {"long": 130.84, "lat": -12.46, "code": "NT", "label": "NT", "n": 1}
+      ]},
+      "mark": {"type": "circle", "color": "#0a0e1a", "stroke": "#5DE2E7", "strokeWidth": 1.5, "size": 100, "opacity": 0.85},
+      "encoding": {
+        "longitude": {"field": "long", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"long": 144.96, "lat": -37.8, "code": "VIC", "label": "VIC"},
+        {"long": 151.21, "lat": -33.87, "code": "NSW", "label": "NSW"},
+        {"long": 153.02, "lat": -27.47, "code": "QLD", "label": "QLD"},
+        {"long": 115.86, "lat": -31.95, "code": "WA", "label": "WA"},
+        {"long": 138.6, "lat": -34.93, "code": "SA", "label": "SA"},
+        {"long": 147.33, "lat": -42.88, "code": "TAS", "label": "TAS"},
+        {"long": 149.13, "lat": -35.28, "code": "ACT", "label": "ACT"},
+        {"long": 130.84, "lat": -12.46, "code": "NT", "label": "NT"}
+      ]},
+      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 13, "fontWeight": 700, "color": "#f1f3fa", "dy": -16, "stroke": "#0a0e1a", "strokeWidth": 0.6, "strokeOpacity": 1},
+      "encoding": {
+        "longitude": {"field": "long", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "label"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"long": 147.33, "lat": -41.7,  "label": "TAS leads per capita →", "ctype": "amber"},
+        {"long": 149.13, "lat": -34.0,  "label": "← ACT punches above weight", "ctype": "amber"},
+        {"long": 144.96, "lat": -39.2,  "label": "VIC: 50 studios — most in absolute terms", "ctype": "cyan"}
+      ]},
+      "mark": {"type": "text", "font": "Inter", "fontSize": 11, "fontWeight": 600, "align": "center"},
+      "encoding": {
+        "longitude": {"field": "long", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "label"},
+        "color": {"field": "ctype", "type": "nominal",
+          "scale": {"domain": ["amber", "cyan"], "range": ["#F5B742", "#5DE2E7"]},
+          "legend": null}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}
