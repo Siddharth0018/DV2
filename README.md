@@ -2,8 +2,6 @@
 
 A data-driven editorial essay on the Australian video game industry and its players, built for **FIT2179 Data Visualisation 2** (Monash University, Semester 1, 2026).
 
-**Live site:** `https://<your-github-username>.github.io/aus-gaming-nation/`
-*(replace once you've enabled GitHub Pages on this repo)*
 
 ## What this is
 
