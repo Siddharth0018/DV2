@@ -75,11 +75,13 @@ const CHARTS = [
   ["viz-projection",    "vega/14-projection.json"]
 ];
 
+const CHART_VERSION = "20260531-final";
+
 function embedAll() {
   CHARTS.forEach(([elId, url]) => {
     const el = document.getElementById(elId);
     if (!el) return;
-    vegaEmbed("#" + elId, url, EMBED_OPTIONS)
+    vegaEmbed("#" + elId, `${url}?v=${CHART_VERSION}`, EMBED_OPTIONS)
       .then(() => el.classList.add("is-loaded"))
       .catch((err) => {
         console.error("Failed to embed", url, err);
