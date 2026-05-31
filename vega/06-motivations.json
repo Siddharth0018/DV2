@@ -16,7 +16,7 @@
       "encoding": {
         "x": {"field": "zero", "type": "quantitative", "scale": {"domain": [0, 100]}, "axis": null},
         "x2": {"field": "hundred"},
-        "y": {"field": "motivation", "type": "nominal", "sort": "-x"}
+        "y": {"field": "motivation", "type": "nominal", "sort": {"field": "percent", "order": "descending"}}
       }
     },
     {
@@ -27,7 +27,7 @@
         "y": {
           "field": "motivation",
           "type": "nominal",
-          "sort": "-x",
+          "sort": {"field": "percent", "order": "descending"},
           "axis": {"title": null, "labelColor": "#e8eaf0", "labelFont": "Inter", "labelFontSize": 13, "labelFontWeight": 500, "labelPadding": 14, "domain": false, "ticks": false}
         },
         "color": {
@@ -42,7 +42,7 @@
       "mark": {"type": "circle", "size": 280, "stroke": "#0a0e1a", "strokeWidth": 3},
       "encoding": {
         "x": {"field": "percent", "type": "quantitative", "scale": {"domain": [0, 100]}, "axis": null},
-        "y": {"field": "motivation", "type": "nominal", "sort": "-x"},
+        "y": {"field": "motivation", "type": "nominal", "sort": {"field": "percent", "order": "descending"}},
         "color": {
           "field": "percent",
           "type": "quantitative",
@@ -59,7 +59,7 @@
       "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 14, "fontWeight": 700, "color": "#f1f3fa", "align": "left", "dx": 16},
       "encoding": {
         "x": {"field": "percent", "type": "quantitative", "scale": {"domain": [0, 100]}},
-        "y": {"field": "motivation", "type": "nominal", "sort": "-x"},
+        "y": {"field": "motivation", "type": "nominal", "sort": {"field": "percent", "order": "descending"}},
         "text": {"field": "percent", "type": "quantitative", "format": ".0f"}
       }
     },
@@ -67,7 +67,7 @@
       "mark": {"type": "text", "font": "Inter", "fontSize": 11, "color": "#8a91a3", "align": "left", "dx": 35},
       "encoding": {
         "x": {"field": "percent", "type": "quantitative", "scale": {"domain": [0, 100]}},
-        "y": {"field": "motivation", "type": "nominal", "sort": "-x"},
+        "y": {"field": "motivation", "type": "nominal", "sort": {"field": "percent", "order": "descending"}},
         "text": {"value": "%"}
       }
     }

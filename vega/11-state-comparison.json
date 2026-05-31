@@ -18,7 +18,7 @@
           "field": "code",
           "type": "nominal",
           "sort": {"field": "studios", "order": "descending"},
-          "axis": {"title": null, "labelColor": "#c8cbd9", "labelFont": "Space Grotesk", "labelFontSize": 13, "labelFontWeight": 700, "labelPadding": 14, "domain": false, "ticks": false}
+          "axis": {"title": null, "labelColor": "#c8cbd9", "labelFont": "Space Grotesk", "labelFontSize": 13, "labelFontWeight": 700, "labelAngle": 0, "labelPadding": 14, "domain": false, "ticks": false}
         },
         "y": {
           "field": "studios",

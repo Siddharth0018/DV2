@@ -88,12 +88,19 @@
         {"long": 149.13, "lat": -35.28, "code": "ACT", "label": "ACT"},
         {"long": 130.84, "lat": -12.46, "code": "NT", "label": "NT"}
       ]},
-      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 13, "fontWeight": 700, "color": "#f1f3fa", "dy": -16, "stroke": "#0a0e1a", "strokeWidth": 0.6, "strokeOpacity": 1},
       "encoding": {
         "longitude": {"field": "long", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
         "text": {"field": "label"}
-      }
+      },
+      "layer": [
+        {
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 14, "fontWeight": 700, "dy": -16, "color": "#05070f", "stroke": "#05070f", "strokeWidth": 5, "strokeOpacity": 1, "lineBreak": "\n"}
+        },
+        {
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 14, "fontWeight": 700, "dy": -16, "color": "#ffffff"}
+        }
+      ]
     },
     {
       "data": {"values": [
@@ -101,15 +108,24 @@
         {"long": 149.13, "lat": -34.0,  "label": "← ACT punches above weight", "ctype": "amber"},
         {"long": 144.96, "lat": -39.2,  "label": "VIC: 50 studios — most in absolute terms", "ctype": "cyan"}
       ]},
-      "mark": {"type": "text", "font": "Inter", "fontSize": 11, "fontWeight": 600, "align": "center"},
       "encoding": {
         "longitude": {"field": "long", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
-        "text": {"field": "label"},
-        "color": {"field": "ctype", "type": "nominal",
-          "scale": {"domain": ["amber", "cyan"], "range": ["#F5B742", "#5DE2E7"]},
-          "legend": null}
-      }
+        "text": {"field": "label"}
+      },
+      "layer": [
+        {
+          "mark": {"type": "text", "font": "Inter", "fontSize": 12, "fontWeight": 700, "align": "center", "color": "#05070f", "stroke": "#05070f", "strokeWidth": 5, "strokeOpacity": 1}
+        },
+        {
+          "mark": {"type": "text", "font": "Inter", "fontSize": 12, "fontWeight": 700, "align": "center"},
+          "encoding": {
+            "color": {"field": "ctype", "type": "nominal",
+              "scale": {"domain": ["amber", "cyan"], "range": ["#F8C765", "#7DEBEF"]},
+              "legend": null}
+          }
+        }
+      ]
     }
   ],
   "config": {"view": {"stroke": null}}

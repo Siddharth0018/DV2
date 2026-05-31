@@ -9,26 +9,26 @@ const DARK_THEME = {
   axis: {
     domain: false,
     grid: false,
-    labelColor: "#8a91a3",
+    labelColor: "#aab0c2",
     labelFont: "Inter",
     labelFontSize: 11,
     tickColor: "#1a1f35",
-    titleColor: "#c8cbd9",
+    titleColor: "#dde0ea",
     titleFont: "Inter",
     titleFontSize: 11,
     titleFontWeight: 500
   },
   legend: {
-    labelColor: "#c8cbd9",
+    labelColor: "#dde0ea",
     labelFont: "Inter",
     labelFontSize: 12,
-    titleColor: "#c8cbd9",
+    titleColor: "#dde0ea",
     titleFont: "Inter",
     titleFontSize: 12,
     titleFontWeight: 500
   },
   title: {
-    color: "#f1f3fa",
+    color: "#ffffff",
     font: "Space Grotesk",
     fontSize: 16,
     fontWeight: 600

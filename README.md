@@ -15,27 +15,8 @@ Everything in this repo is static — there is no build step, no framework, no b
 - **Page:** Plain semantic HTML (`index.html`), a single hand-written stylesheet (`style.css`), and a tiny embedding script (`js/main.js`) that walks the list of chart placeholders and calls `vegaEmbed` on each.
 - **Theme:** A dark editorial palette inspired by NYT, The Pudding, and ABC News Story Lab — charcoal background, off-white type, cyan/magenta/purple accents.
 
-## Running it locally
 
-The page needs an HTTP server (not `file://`) because Vega-Lite fetches the chart specs and CSVs over `fetch()`. Any static server will do:
 
-```bash
-# Python (no install required)
-python3 -m http.server 8000
-
-# OR Node
-npx http-server -p 8000
-```
-
-Then open `http://localhost:8000` in a browser.
-
-## Hosting on GitHub Pages
-
-1. Push this repo to GitHub.
-2. Settings → Pages → Source: `main` branch, root folder → Save.
-3. Wait ~30 seconds, then visit `https://<username>.github.io/<repo-name>/`.
-
-No build configuration is needed.
 
 ## Repository structure
 
@@ -90,7 +71,6 @@ No build configuration is needed.
 ## Tools and acknowledgement
 
 - Built with Vega-Lite, Pure.css (base reset only), Google Fonts (Inter, Space Grotesk, JetBrains Mono).
-- Generative AI (Claude) was used to assist with editorial copy-editing and Vega-Lite spec scaffolding. All analysis, story structure, and design decisions were made by the author.
 
 ## Licence
 

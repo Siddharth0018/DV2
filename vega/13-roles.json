@@ -32,7 +32,22 @@
             "domain": ["Programmers & Engineers","Artists","Designers","Management & Admin","Producers","QA","Audio","Narrative","Other"],
             "range": ["#5DE2E7","#42C4D9","#B14AED","#8A35BD","#F4287F","#F5B742","#5DE2A1","#FF8559","#3a4060"]
           },
-          "legend": null
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "title": null,
+            "columns": 5,
+            "labelColor": "#c8cbd9",
+            "labelFont": "Inter",
+            "labelFontSize": 12,
+            "labelLimit": 220,
+            "symbolType": "square",
+            "symbolSize": 130,
+            "padding": 8,
+            "offset": 18,
+            "rowPadding": 8,
+            "columnPadding": 18
+          }
         },
         "tooltip": [
           {"field": "role", "type": "nominal", "title": "Role"},
@@ -65,18 +80,6 @@
         "x": {"field": "mid", "type": "quantitative"},
         "y": {"value": 110},
         "text": {"field": "percent", "type": "quantitative", "format": ".0f"}
-      }
-    },
-    {
-      "transform": [
-        {"filter": "datum.percent < 7"},
-        {"calculate": "datum.role + ' (' + datum.percent + '%)'", "as": "label"}
-      ],
-      "mark": {"type": "text", "font": "Inter", "fontWeight": 600, "fontSize": 10, "color": "#c8cbd9", "dy": -82, "angle": -32, "align": "left"},
-      "encoding": {
-        "x": {"field": "mid", "type": "quantitative"},
-        "y": {"value": 110},
-        "text": {"field": "label"}
       }
     }
   ],

@@ -14,7 +14,7 @@
       "mark": {"type": "bar", "color": "#1a1f35", "cornerRadius": 4, "height": 28},
       "encoding": {
         "x": {"field": "track", "type": "quantitative", "scale": {"domain": [0, 100]}, "axis": null},
-        "y": {"field": "device", "type": "nominal", "sort": "-x",
+        "y": {"field": "device", "type": "nominal", "sort": {"field": "usage_pct", "order": "descending"},
           "axis": {"title": null, "labelColor": "#e8eaf0", "labelFont": "Inter", "labelFontSize": 14, "labelFontWeight": 500, "labelPadding": 14, "domain": false, "ticks": false}}
       }
     },
@@ -22,7 +22,7 @@
       "mark": {"type": "bar", "cornerRadius": 4, "height": 28},
       "encoding": {
         "x": {"field": "usage_pct", "type": "quantitative", "axis": null, "scale": {"domain": [0, 100]}},
-        "y": {"field": "device", "type": "nominal", "sort": "-x"},
+        "y": {"field": "device", "type": "nominal", "sort": {"field": "usage_pct", "order": "descending"}},
         "color": {
           "field": "device",
           "type": "nominal",
@@ -42,7 +42,7 @@
       "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 18, "fontWeight": 700, "color": "#f1f3fa", "align": "left", "dx": 10},
       "encoding": {
         "x": {"field": "usage_pct", "type": "quantitative", "scale": {"domain": [0, 100]}},
-        "y": {"field": "device", "type": "nominal", "sort": "-x"},
+        "y": {"field": "device", "type": "nominal", "sort": {"field": "usage_pct", "order": "descending"}},
         "text": {"value": ""}
       }
     },
@@ -50,7 +50,7 @@
       "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 16, "fontWeight": 700, "color": "#f1f3fa", "align": "left", "dx": 10},
       "encoding": {
         "x": {"field": "usage_pct", "type": "quantitative", "scale": {"domain": [0, 100]}},
-        "y": {"field": "device", "type": "nominal", "sort": "-x"},
+        "y": {"field": "device", "type": "nominal", "sort": {"field": "usage_pct", "order": "descending"}},
         "text": {"field": "usage_pct", "type": "quantitative", "format": ".0f"}
       }
     },
@@ -58,7 +58,7 @@
       "mark": {"type": "text", "font": "Inter", "fontSize": 11, "fontWeight": 500, "color": "#8a91a3", "align": "left", "dx": 36, "dy": 1},
       "encoding": {
         "x": {"field": "usage_pct", "type": "quantitative", "scale": {"domain": [0, 100]}},
-        "y": {"field": "device", "type": "nominal", "sort": "-x"},
+        "y": {"field": "device", "type": "nominal", "sort": {"field": "usage_pct", "order": "descending"}},
         "text": {"value": "%"}
       }
     }

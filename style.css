@@ -13,10 +13,10 @@
   --bg-elevated:  #161b2f;
   --bg-light:     #0f1424;
 
-  --ink-bright:   #f1f3fa;
-  --ink-base:     #c8cbd9;
-  --ink-muted:    #8a91a3;
-  --ink-faint:    #6b7088;
+  --ink-bright:   #ffffff;
+  --ink-base:     #dde0ea;
+  --ink-muted:    #aab0c2;
+  --ink-faint:    #9097ac;
 
   --line-strong:  #2a3050;
   --line-soft:    #1a1f35;
@@ -284,6 +284,7 @@ em { font-style: italic; color: var(--ink-bright); }
   align-items: center;
 }
 .two-col > div p { max-width: 42ch; }
+
 .hsmall {
   font-family: var(--font-display);
   font-weight: 600;

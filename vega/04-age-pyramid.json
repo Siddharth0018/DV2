@@ -1,98 +1,82 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Mirrored population pyramid: percentage of Australian gamers by age band and gender. Women on the left (pink), men on the right (cyan).",
+  "description": "Australian gamers by age band, filterable by gender. A bound dropdown switches between Women and Men; bars are ordered by overall share of all gamers.",
   "width": "container",
-  "height": 380,
+  "height": 420,
   "background": "transparent",
-  "padding": {"left": 0, "right": 0, "top": 16, "bottom": 16},
-  "spacing": 40,
+  "padding": {"left": 0, "right": 28, "top": 16, "bottom": 16},
   "data": {"url": "data/age-gender.csv"},
-  "hconcat": [
+  "params": [
     {
-      "title": {"text": "WOMEN", "anchor": "end", "color": "#F4287F", "font": "Space Grotesk", "fontSize": 12, "fontWeight": 600, "frame": "group", "offset": 12},
-      "width": "container",
-      "mark": {"type": "bar", "cornerRadiusTopLeft": 4, "cornerRadiusBottomLeft": 4, "color": "#F4287F"},
+      "name": "Gender",
+      "value": "Women",
+      "bind": {"input": "select", "options": ["Women", "Men"], "name": "Show gender:  "}
+    }
+  ],
+  "transform": [
+    {"fold": ["female_pct", "male_pct"], "as": ["gender_key", "pct"]},
+    {"calculate": "datum.gender_key === 'female_pct' ? 'Women' : 'Men'", "as": "gender"},
+    {"filter": "datum.gender === Gender"}
+  ],
+  "encoding": {
+    "y": {
+      "field": "age_band",
+      "type": "ordinal",
+      "sort": {"field": "total_pct", "order": "descending"},
+      "axis": {
+        "title": null,
+        "labelColor": "#dde0ea",
+        "labelFont": "Space Grotesk",
+        "labelFontSize": 14,
+        "labelFontWeight": 600,
+        "labelPadding": 12,
+        "domain": false,
+        "ticks": false
+      }
+    },
+    "x": {
+      "field": "pct",
+      "type": "quantitative",
+      "scale": {"domain": [0, 11]},
+      "axis": {
+        "title": "% of all Australian gamers",
+        "titleColor": "#aab0c2",
+        "titleFont": "Inter",
+        "titleFontSize": 11,
+        "titlePadding": 12,
+        "labelColor": "#9097ac",
+        "labelFontSize": 11,
+        "labelFont": "Inter",
+        "tickColor": "#2a3050",
+        "domain": false,
+        "grid": true,
+        "gridColor": "#1a1f35",
+        "gridDash": [2, 4],
+        "format": ".0f"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "bar", "cornerRadiusEnd": 4, "height": {"band": 0.68}},
       "encoding": {
-        "y": {
-          "field": "age_band",
-          "type": "ordinal",
-          "sort": ["65+","55-64","45-54","35-44","25-34","18-24","13-17","5-12"],
-          "axis": null
-        },
-        "x": {
-          "field": "female_pct",
-          "type": "quantitative",
-          "sort": "descending",
-          "scale": {"domain": [0, 10], "reverse": true},
-          "axis": {
-            "title": "% of gamers",
-            "titleColor": "#8a91a3",
-            "titleFont": "Inter",
-            "titleFontSize": 11,
-            "labelColor": "#6b7088",
-            "labelFontSize": 11,
-            "labelFont": "Inter",
-            "tickColor": "#2a3050",
-            "domain": false,
-            "grid": true,
-            "gridColor": "#1a1f35",
-            "gridDash": [2, 4]
-          }
+        "color": {
+          "field": "gender",
+          "type": "nominal",
+          "scale": {"domain": ["Women", "Men"], "range": ["#F4287F", "#5DE2E7"]},
+          "legend": null
         },
         "tooltip": [
-          {"field": "age_band", "type": "nominal", "title": "Age"},
-          {"field": "female_pct", "type": "quantitative", "title": "Women (% of all gamers)", "format": ".1f"}
+          {"field": "age_band", "type": "nominal", "title": "Age band"},
+          {"field": "gender", "type": "nominal", "title": "Gender"},
+          {"field": "pct", "type": "quantitative", "title": "% of all gamers", "format": ".1f"}
         ]
       }
     },
     {
-      "width": 80,
-      "view": {"stroke": null},
-      "mark": {"type": "text", "font": "Space Grotesk", "fontWeight": 600, "fontSize": 14, "color": "#c8cbd9"},
+      "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 8, "font": "Space Grotesk", "fontSize": 13, "fontWeight": 700, "color": "#ffffff"},
       "encoding": {
-        "y": {
-          "field": "age_band",
-          "type": "ordinal",
-          "sort": ["65+","55-64","45-54","35-44","25-34","18-24","13-17","5-12"],
-          "axis": null
-        },
-        "text": {"field": "age_band", "type": "nominal"}
-      }
-    },
-    {
-      "title": {"text": "MEN", "anchor": "start", "color": "#5DE2E7", "font": "Space Grotesk", "fontSize": 12, "fontWeight": 600, "frame": "group", "offset": 12},
-      "width": "container",
-      "mark": {"type": "bar", "cornerRadiusTopRight": 4, "cornerRadiusBottomRight": 4, "color": "#5DE2E7"},
-      "encoding": {
-        "y": {
-          "field": "age_band",
-          "type": "ordinal",
-          "sort": ["65+","55-64","45-54","35-44","25-34","18-24","13-17","5-12"],
-          "axis": null
-        },
-        "x": {
-          "field": "male_pct",
-          "type": "quantitative",
-          "scale": {"domain": [0, 10]},
-          "axis": {
-            "title": "% of gamers",
-            "titleColor": "#8a91a3",
-            "titleFont": "Inter",
-            "titleFontSize": 11,
-            "labelColor": "#6b7088",
-            "labelFontSize": 11,
-            "labelFont": "Inter",
-            "tickColor": "#2a3050",
-            "domain": false,
-            "grid": true,
-            "gridColor": "#1a1f35",
-            "gridDash": [2, 4]
-          }
-        },
-        "tooltip": [
-          {"field": "age_band", "type": "nominal", "title": "Age"},
-          {"field": "male_pct", "type": "quantitative", "title": "Men (% of all gamers)", "format": ".1f"}
-        ]
+        "text": {"field": "pct", "type": "quantitative", "format": ".1f"}
       }
     }
   ],

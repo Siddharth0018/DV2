@@ -15,7 +15,7 @@
       "mark": {"type": "area", "interpolate": "monotone", "opacity": 0.92},
       "encoding": {
         "x": {"field": "year", "type": "ordinal",
-          "axis": {"title": null, "labelColor": "#c8cbd9", "labelFont": "Inter", "labelFontSize": 12, "labelFontWeight": 500, "domain": false, "ticks": false, "labelPadding": 12}},
+          "axis": {"title": null, "labelColor": "#c8cbd9", "labelFont": "Inter", "labelFontSize": 12, "labelFontWeight": 500, "labelAngle": 0, "labelExpr": "'FY' + slice(datum.value, 4)", "domain": false, "ticks": false, "labelPadding": 12}},
         "y": {"field": "count", "type": "quantitative", "stack": "zero",
           "axis": {"title": "Full-time employees", "titleColor": "#8a91a3", "titleFont": "Inter", "titleFontSize": 11, "titlePadding": 14, "labelColor": "#6b7088", "labelFont": "Inter", "labelFontSize": 11, "tickColor": "#1a1f35", "domain": false, "grid": true, "gridColor": "#1a1f35", "gridDash": [2, 4]}},
         "color": {
