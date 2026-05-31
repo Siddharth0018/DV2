@@ -49,7 +49,7 @@
       }
     },
     {
-      "mark": {"type": "circle", "size": 320, "stroke": "#0a0e1a", "strokeWidth": 3, "color": "#5DE2E7"},
+      "mark": {"type": "circle", "size": 680, "stroke": "#5DE2E7", "strokeWidth": 3, "color": "#f1f3fa", "opacity": 1},
       "encoding": {
         "x": {"field": "code", "type": "nominal", "sort": {"field": "studios", "order": "descending"}},
         "y": {"field": "density_scaled", "type": "quantitative"},
@@ -60,23 +60,11 @@
       }
     },
     {
-      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 10, "fontWeight": 700, "color": "#0a0e1a"},
+      "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 13, "fontWeight": 800, "color": "#06101a"},
       "encoding": {
         "x": {"field": "code", "type": "nominal", "sort": {"field": "studios", "order": "descending"}},
         "y": {"field": "density_scaled", "type": "quantitative"},
         "text": {"field": "studios_per_100k", "type": "quantitative", "format": ".2f"}
-      }
-    },
-    {
-      "data": {"values": [
-        {"x_anchor": "TAS", "label": "Highest density per capita →", "y": 56},
-        {"x_anchor": "VIC", "label": "Largest absolute cluster", "y": 56}
-      ]},
-      "mark": {"type": "text", "font": "Inter", "fontSize": 11, "color": "#F5B742", "fontWeight": 600, "align": "center", "dy": -14},
-      "encoding": {
-        "x": {"field": "x_anchor", "type": "nominal"},
-        "y": {"field": "y", "type": "quantitative"},
-        "text": {"field": "label"}
       }
     }
   ],

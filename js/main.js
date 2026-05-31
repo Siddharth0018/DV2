@@ -68,6 +68,7 @@ const CHARTS = [
   ["viz-employment",    "vega/08-employment-growth.json"],
   ["viz-export",        "vega/09-export-flow.json"],
   ["viz-map",           "vega/10-studio-map.json"],
+  ["viz-symbol-map",    "vega/15-employment-symbol-map.json"],
   ["viz-state-bars",    "vega/11-state-comparison.json"],
   ["viz-bubble",        "vega/12-studio-bubble.json"],
   ["viz-roles",         "vega/13-roles.json"],

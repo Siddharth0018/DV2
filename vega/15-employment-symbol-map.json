@@ -1,0 +1,154 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Proportional-symbol map of Australian game-development FTE employment by capital city. Uses the same simplified Australian state geometries and Mercator projection as the per-capita choropleth map.",
+  "width": "container",
+  "height": 520,
+  "background": "transparent",
+  "padding": {"top": 8, "right": 24, "bottom": 72, "left": 24},
+  "projection": {
+    "type": "mercator",
+    "center": [134, -27],
+    "scale": 650
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/aus-states.geojson",
+        "format": {"type": "json", "property": "features"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.code",
+          "from": {
+            "data": {"url": "data/studios-by-state.csv"},
+            "key": "code",
+            "fields": ["state", "studios", "fte_employees", "studios_per_100k"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "#2a3050", "strokeWidth": 1.2},
+      "encoding": {
+        "color": {
+          "field": "studios_per_100k",
+          "type": "quantitative",
+          "scale": {"domain": [0, 1], "range": ["#11162a", "#333a52"]},
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State / Territory"},
+          {"field": "studios", "type": "quantitative", "title": "Studios"},
+          {"field": "fte_employees", "type": "quantitative", "title": "Full-time employees"},
+          {"field": "studios_per_100k", "type": "quantitative", "title": "Studios per 100,000", "format": ".2f"}
+        ]
+      }
+    },
+    {
+      "data": {"values": [
+        {"code": "NSW", "capital": "Sydney", "long": 151.21, "lat": -33.87},
+        {"code": "VIC", "capital": "Melbourne", "long": 144.96, "lat": -37.81},
+        {"code": "QLD", "capital": "Brisbane", "long": 153.02, "lat": -27.47},
+        {"code": "WA", "capital": "Perth", "long": 115.86, "lat": -31.95},
+        {"code": "SA", "capital": "Adelaide", "long": 138.60, "lat": -34.93},
+        {"code": "TAS", "capital": "Hobart", "long": 147.33, "lat": -42.88},
+        {"code": "NT", "capital": "Darwin", "long": 130.84, "lat": -12.46},
+        {"code": "ACT", "capital": "Canberra", "long": 149.13, "lat": -35.28}
+      ]},
+      "transform": [
+        {
+          "lookup": "code",
+          "from": {
+            "data": {"url": "data/studios-by-state.csv"},
+            "key": "code",
+            "fields": ["state", "studios", "fte_employees", "fte_per_100k"]
+          }
+        },
+        {"calculate": "datum.fte_employees >= 400 ? 'Major workforce' : 'Other capitals'", "as": "workforce_tier"}
+      ],
+      "mark": {"type": "circle", "opacity": 0.84, "stroke": "#ffffff", "strokeWidth": 1.6},
+      "encoding": {
+        "longitude": {"field": "long", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "size": {
+          "field": "fte_employees",
+          "type": "quantitative",
+          "scale": {"domain": [0, 1000], "range": [0, 6800]},
+          "legend": {
+            "title": "Full-time employees",
+            "values": [100, 500, 1000],
+            "titleColor": "#dde0ea",
+            "titleFont": "Inter",
+            "titleFontSize": 12,
+            "titleFontWeight": 700,
+            "labelColor": "#c8cbd9",
+            "labelFont": "Inter",
+            "labelFontSize": 11,
+            "orient": "bottom",
+            "direction": "horizontal",
+            "columns": 3,
+            "offset": 10,
+            "symbolFillColor": "#5DE2E7",
+            "symbolStrokeColor": "#ffffff",
+            "symbolStrokeWidth": 1.4
+          }
+        },
+        "color": {
+          "field": "workforce_tier",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Major workforce", "Other capitals"],
+            "range": ["#F4287F", "#5DE2E7"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "capital", "type": "nominal", "title": "Capital city"},
+          {"field": "state", "type": "nominal", "title": "State / Territory"},
+          {"field": "fte_employees", "type": "quantitative", "title": "Full-time employees"},
+          {"field": "studios", "type": "quantitative", "title": "Studios"},
+          {"field": "fte_per_100k", "type": "quantitative", "title": "FTE per 100,000", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "data": {"values": [
+        {"long": 144.96, "lat": -40.05, "label": "Melbourne\n880 FTE", "tone": "magenta"},
+        {"long": 151.55, "lat": -32.35, "label": "Sydney\n440 FTE", "tone": "magenta"},
+        {"long": 116.15, "lat": -30.75, "label": "Perth\n293", "tone": "cyan"},
+        {"long": 153.15, "lat": -25.95, "label": "Brisbane\n342", "tone": "cyan"}
+      ]},
+      "encoding": {
+        "longitude": {"field": "long", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "label"}
+      },
+      "layer": [
+        {
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 12, "fontWeight": 700, "lineBreak": "\n", "align": "center", "color": "#05070f", "stroke": "#05070f", "strokeWidth": 5, "strokeOpacity": 1}
+        },
+        {
+          "mark": {"type": "text", "font": "Space Grotesk", "fontSize": 12, "fontWeight": 700, "lineBreak": "\n", "align": "center"},
+          "encoding": {
+            "color": {
+              "field": "tone",
+              "type": "nominal",
+              "scale": {"domain": ["magenta", "cyan"], "range": ["#FF6EA7", "#7DEBEF"]},
+              "legend": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "data": {"values": [
+        {"long": 134, "lat": -44.5, "label": "Circle area = capital-city workforce"}
+      ]},
+      "mark": {"type": "text", "font": "Inter", "fontSize": 11, "fontWeight": 600, "align": "center", "color": "#aab0c2"},
+      "encoding": {
+        "longitude": {"field": "long", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "label"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

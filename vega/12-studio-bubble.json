@@ -4,7 +4,7 @@
   "width": "container",
   "height": 480,
   "background": "transparent",
-  "padding": {"top": 24, "left": 28, "right": 28, "bottom": 32},
+  "padding": {"top": 36, "left": 28, "right": 28, "bottom": 108},
   "data": {"url": "data/studios.csv"},
   "params": [
     {
@@ -41,14 +41,21 @@
           "type": "quantitative",
           "scale": {"range": [60, 1800]},
           "legend": {
-            "title": "Full-time employees",
-            "titleColor": "#c8cbd9",
+            "title": "Bubble size = full-time employees",
+            "titleColor": "#ffffff",
             "titleFont": "Inter",
-            "titleFontSize": 11,
-            "labelColor": "#8a91a3",
+            "titleFontSize": 12,
+            "titleFontWeight": 700,
+            "labelColor": "#dde0ea",
             "labelFont": "Inter",
-            "labelFontSize": 11,
-            "orient": "bottom-right"
+            "labelFontSize": 12,
+            "symbolFillColor": "#F5B742",
+            "symbolStrokeColor": "#ffffff",
+            "symbolStrokeWidth": 1.4,
+            "orient": "bottom",
+            "direction": "horizontal",
+            "columns": 4,
+            "offset": 18
           }
         },
         "color": {
@@ -59,16 +66,22 @@
             "range": ["#5DE2E7","#F4287F","#B14AED","#F5B742","#5DE2A1","#FF8559","#42C4D9","#8A35BD"]
           },
           "legend": {
-            "title": "State / Territory",
-            "titleColor": "#c8cbd9",
+            "title": "Bubble colour = state / territory",
+            "titleColor": "#ffffff",
             "titleFont": "Inter",
-            "titleFontSize": 11,
-            "labelColor": "#c8cbd9",
+            "titleFontSize": 12,
+            "titleFontWeight": 700,
+            "labelColor": "#dde0ea",
             "labelFont": "Inter",
-            "labelFontSize": 11,
+            "labelFontSize": 12,
             "orient": "top",
+            "direction": "horizontal",
+            "columns": 8,
             "symbolType": "circle",
-            "symbolSize": 120
+            "symbolSize": 180,
+            "symbolStrokeColor": "#ffffff",
+            "symbolStrokeWidth": 1.2,
+            "offset": 10
           }
         },
         "tooltip": [
@@ -82,8 +95,7 @@
     },
     {
       "data": {"values": [
-        {"x": 1.3, "y": 0.18, "text": "31% of studios are developing their first game", "type": "annot"},
-        {"x": 22, "y": 80,  "text": "Older mature studios cluster top-right →", "type": "annot"}
+        {"x": 1.3, "y": 0.18, "text": "31% of studios are developing their first game", "type": "annot"}
       ]},
       "mark": {"type": "text", "font": "Inter", "fontSize": 12, "color": "#F5B742", "fontWeight": 600, "align": "left"},
       "encoding": {

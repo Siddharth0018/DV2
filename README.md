@@ -5,7 +5,7 @@ A data-driven editorial essay on the Australian video game industry and its play
 
 ## What this is
 
-A single scrollable web page that combines fourteen visualisations into one editorial narrative — from the surprise that 82% of Australians play games, through the changing gender mix of players, to the half-billion-dollar export industry quietly built in studios from Hobart to Brisbane. The arc moves from player culture to industry economics to a forward-looking projection of where the sector is heading.
+A single scrollable web page that combines fifteen visualisations into one editorial narrative — from the surprise that 82% of Australians play games, through the changing gender mix of players, to the half-billion-dollar export industry quietly built in studios from Hobart to Brisbane. The arc moves from player culture to industry economics to a forward-looking projection of where the sector is heading.
 
 ## How it's built
 
@@ -27,7 +27,7 @@ Everything in this repo is static — there is no build step, no framework, no b
 ├── README.md                   # You are here
 ├── js/
 │   └── main.js                 # vegaEmbed wrapper, dark theme config
-├── vega/                       # 14 Vega-Lite chart specs (one per visualisation)
+├── vega/                       # 15 Vega-Lite chart specs (one per visualisation)
 │   ├── 01-hero-waffle.json     # 82% of Australians play (waffle grid)
 │   ├── 02-gender-split.json    # Player gender, 51/48/1 (segmented bar)
 │   ├── 03-household-devices.json   # Households with ≥1, ≥2, ≥3 devices
@@ -38,6 +38,7 @@ Everything in this repo is static — there is no build step, no framework, no b
 │   ├── 08-employment-growth.json   # Industry FTE growth, stacked by gender
 │   ├── 09-export-flow.json     # 95% exports vs 5% domestic (split flow)
 │   ├── 10-studio-map.json      # Choropleth: studios per 100k by state
+│   ├── 15-employment-symbol-map.json  # Proportional-symbol map: FTE by capital city
 │   ├── 11-state-comparison.json    # Paired bars + circles by state
 │   ├── 12-studio-bubble.json   # Interactive bubble: age × revenue × size × state
 │   ├── 13-roles.json           # Workforce role mix (proportional bar)

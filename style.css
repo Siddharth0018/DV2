@@ -308,6 +308,23 @@ em { font-style: italic; color: var(--ink-bright); }
 }
 .section-feature { margin-top: clamp(60px, 8vw, 110px); }
 
+.map-duo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 44px);
+}
+.map-duo .viz {
+  min-width: 0;
+}
+.map-duo-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink-bright);
+  margin: 0 0 12px;
+}
+
 /* ---------- Visualisation frame ---------------------------------------- */
 .viz {
   margin: 0;
@@ -443,6 +460,7 @@ em { font-style: italic; color: var(--ink-bright); }
 /* ---------- Responsive -------------------------------------------------- */
 @media (max-width: 900px) {
   .two-col { grid-template-columns: 1fr; gap: 30px; }
+  .map-duo { grid-template-columns: 1fr; }
   .hero-stat { grid-template-columns: 1fr; }
   .hero-cards { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 36px; }
