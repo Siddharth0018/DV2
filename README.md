@@ -5,7 +5,7 @@ A data-driven editorial essay on the Australian video game industry and its play
 
 ## What this is
 
-A single scrolling web page that combines fourteen visualisations into one editorial narrative — from the surprise that 82% of Australians play games, through the changing gender mix of players, to the half-billion-dollar export industry quietly built in studios from Hobart to Brisbane. The arc moves from player culture to industry economics to a forward-looking projection of where the sector is heading.
+A single scrollable web page that combines fourteen visualisations into one editorial narrative — from the surprise that 82% of Australians play games, through the changing gender mix of players, to the half-billion-dollar export industry quietly built in studios from Hobart to Brisbane. The arc moves from player culture to industry economics to a forward-looking projection of where the sector is heading.
 
 ## How it's built
 
